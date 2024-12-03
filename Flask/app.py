@@ -53,39 +53,39 @@ def classify_image():
         return jsonify({'error': f'Failed to process image: {str(e)}'}), 500
 
 
-@app.route('/generate_recipe', methods=['POST'])
-def generate_recipe():
-    data = request.get_json()
-    dish_name = data.get('dishName', '')
+# @app.route('/generate_recipe', methods=['POST'])
+# def generate_recipe():
+#     data = request.get_json()
+#     dish_name = data.get('dishName', '')
 
-    if not dish_name:
-        return jsonify({'error': 'No dish name provided'}), 400
+#     if not dish_name:
+#         return jsonify({'error': 'No dish name provided'}), 400
 
-    try:
+#     try:
        
-        input_text = f"Generate a full step wise recipe for {dish_name}:"
-        inputs = recipe_tokenizer.encode(input_text, return_tensors="pt")  
+#         input_text = f"Generate a full step wise recipe for {dish_name}:"
+#         inputs = recipe_tokenizer.encode(input_text, return_tensors="pt")  
 
         
-        outputs = recipe_model.generate(
-            inputs,
-            max_length=150,
-            num_return_sequences=1,
-            temperature=0.7,
-            top_p=0.9,      
-            repetition_penalty=2.0  
-        )
+#         outputs = recipe_model.generate(
+#             inputs,
+#             max_length=150,
+#             num_return_sequences=1,
+#             temperature=0.7,
+#             top_p=0.9,      
+#             repetition_penalty=2.0  
+#         )
 
       
-        recipe = recipe_tokenizer.decode(outputs[0], skip_special_tokens=True)
+#         recipe = recipe_tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         
-        recipe = recipe.replace(input_text, '').strip()
+#         recipe = recipe.replace(input_text, '').strip()
 
-        return jsonify({'recipe': recipe})
+#         return jsonify({'recipe': recipe})
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500
 
 
 # # Fatsecret API integration for fetching recipes based on dish name
